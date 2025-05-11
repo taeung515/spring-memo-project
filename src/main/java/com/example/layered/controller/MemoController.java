@@ -34,11 +34,13 @@ public class MemoController {
 
     @GetMapping
     public ResponseEntity<List<MemoResponseDto>> findAllMemos() {
+
         return new ResponseEntity<>(memoService.findAllMemos(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MemoResponseDto> findMemoById(@PathVariable Long id) {
+
         return new ResponseEntity<>(memoService.findMemoById(id), HttpStatus.OK);
     }
 
@@ -50,4 +52,14 @@ public class MemoController {
 
         return new ResponseEntity<>(memoService.updateMemo(id, dto.getTitle(), dto.getContents()), HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<MemoResponseDto> updateTitle(
+            @PathVariable Long id,
+            @RequestBody MemoRequestDto dto
+    ) {
+
+        return new ResponseEntity<>(memoService.updateTitle(id, dto.getTitle(), dto.getContents()), HttpStatus.OK);
+    }
+
 }
