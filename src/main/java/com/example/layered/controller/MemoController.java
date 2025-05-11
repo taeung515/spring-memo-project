@@ -5,10 +5,9 @@ import com.example.layered.dto.MemoResponseDto;
 import com.example.layered.service.MemoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController // @Controller + @ResponseBody
 @RequestMapping("/memos") // Prefix
@@ -20,6 +19,7 @@ public class MemoController {
     /**
      * 생성자 주입
      * 클래스가 필요로 하는 의존성을 생성자를 통해 전달하는 방식
+     *
      * @param memoService @Service로 등록된 MemoService 구현체인 Impl
      */
     public MemoController(MemoService memoService) {
@@ -28,8 +28,12 @@ public class MemoController {
 
     @PostMapping
     public ResponseEntity<MemoResponseDto> createMemo(@RequestBody MemoRequestDto dto) {
-
         // Service Layer 호출, 응답
         return new ResponseEntity<>(memoService.saveMemo(dto), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MemoResponseDto>> findAllMemos() {
+        return new ResponseEntity<>(memoService.findAllMemos(), HttpStatus.OK);
     }
 }
