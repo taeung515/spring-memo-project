@@ -11,4 +11,5 @@ public interface MemoRepository {
 
     List<MemoResponseDto> findAllmemos();
 
+    Memo findMemoById(Long id);
 }
